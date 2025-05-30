@@ -1,6 +1,7 @@
 # PrivNet.AI - Privacy-Preserving Geometric Deep Learning
 
 Welcome to **PrivNet.AI** — an open-source platform combining **post-quantum cryptography** and **geometric deep learning** to enable **privacy-preserving machine learning on sensitive data** such as genomics, financial networks, and healthcare records.
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin)]((https://www.linkedin.com/company/privnetai/))
 
 [![Join Us on Discord](https://img.shields.io/badge/Discord-Join%20Us-5865F2?logo=discord&logoColor=white&style=for-the-badge)](https://discord.gg/QHzwUKnf)
 
