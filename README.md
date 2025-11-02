@@ -7,7 +7,9 @@ Welcome to **PrivNet.AI** — an open-source platform combining **post-quantum c
 ## 🚀 Project Vision
 Build a privacy-centric infrastructure where users can train graph-based models **without ever decrypting their data**.
 
-We use **isogeny-based cryptography** (post-quantum secure) and **graph neural networks (GNNs)** to perform secure, structure-aware learning on encrypted data.
+We aim to use **isogeny-based cryptography** (post-quantum secure) and **graph neural networks (GNNs)** to perform secure, structure-aware learning on encrypted data.
+
+> **Current Status**: This is a proof-of-concept (PoC) demonstrating encrypted linear operations on graph neural network features. The current implementation uses `EncryptionShim` (a cryptographic simulator) for demonstration purposes. See [Limitations](#-current-limitations) below.
 
 ---
 
@@ -125,10 +127,16 @@ MIT License — free to use, modify, and contribute.
 ---
 
 ## ✨ Contact & Community
-- File GitHub Issues or PRs
-- Community chat (coming soon: Discord/Matrix)
-- Follow `roadmap.md` for what's coming next
+- **Discord**: [Join our community](https://discord.gg/4fby4D28QE)
+- **GitHub Issues**: Report bugs, request features, or ask questions
+- **Contributions**: See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines
+- **Roadmap**: Follow [roadmap.md](roadmap.md) for development progress
 
 Let's build privacy-native AI together.
 
 — The PrivNet.AI team
+
+---
+
+## 🙏 Acknowledgments
+Special thanks to the open-source communities behind PyTorch, PyTorch Geometric, and the cryptographic research community working on privacy-preserving machine learning.
