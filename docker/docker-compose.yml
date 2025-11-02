@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  privnetai-ml:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .//app/data
+    environment:
+      - CONFIG_PATH=/app/configs/model_config.yaml
+
+  privnetai-crypto:
+    build:
+      context: .
+      dockerfile: Dockerfile.crypto
+    environment:
+      - CONFIG_PATH=/app/configs/crypto_config.yaml
+
+  privnetai-federation:
+    build:
+      context: .
+      dockerfile: Dockerfile.federation
+    networks:
+      - privnetai-net
+
+networks:
+  privnetai-net:

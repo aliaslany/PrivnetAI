@@ -1,8 +1,8 @@
 import argparse, torch
-from utils import set_seed
+from core.utils import set_seed
 from datasets import load_planetoid
-from models import GCN
-from trainer import TrainConfig, train_and_eval
+from ml.models.models import GCN
+from ml.training.trainer import TrainConfig, train_and_eval
 
 def parse_args():
     p = argparse.ArgumentParser()
