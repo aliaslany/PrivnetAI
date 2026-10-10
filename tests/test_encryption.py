@@ -12,8 +12,19 @@ class TestEncryptionShim:
         
         # Should be approximately equal due to quantization
         assert torch.allclose(x, x_dec, atol=1/256.0)
-    
+        
+  def test_linear_small_weights_not_zeroed(self):
+       """Regression: weights with |w| < 0.5 used to round to 0 and vanish."""
+       torch.manual_seed(0)
+       shim = EncryptionShim(scale=128.0, seed=1)
+       x = torch.randn(4, 3)
+       W = torch.full((3, 2), 0.2)
+       y_dec = shim.decrypt_tensor(shim.matmul_linear_only(shim.encrypt_tensor(x), W))
+       assert torch.count_nonzero(y_dec) > 0
+       assert torch.allclose(x @ W, y_dec, atol=0.05)    
+      
     def test_linear_operations(self):
+        torch.manual_seed(0)
         """Test encrypted linear operations"""
         shim = EncryptionShim(scale=128.0, seed=1)
         x = torch.randn(4, 3)
