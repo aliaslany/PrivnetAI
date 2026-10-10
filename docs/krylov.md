@@ -95,3 +95,11 @@ The demo CKKS tuple is polynomial modulus degree 16,384, coefficient-modulus bit
 The new Krylov/browser checks are in `.github/workflows/krylov.yml`. The legacy simulator precision defect documented in the [research archive](research/2026-10-10/README.md) remains independent of this application.
 
 The initial tested site is published from a generated `gh-pages` branch at [aliaslany.github.io/PrivnetAI](https://aliaslany.github.io/PrivnetAI/). For subsequent updates, `.github/workflows/pages.yml` builds and tests the site on `main`, uploads a Pages artifact and deploys it using GitHub's supported Pages actions. It also supports manual dispatch. Source changes are reviewed through a feature PR; the initial demo can be tested before that PR is merged. Pages settings must select GitHub Actions for this ongoing deployment workflow.
+
+The initial branch publication was verified live, including real browser CKKS and result export. Repository setup for subsequent `main` deployments is:
+
+1. In [Pages settings](https://github.com/aliaslany/PrivnetAI/settings/pages), select **GitHub Actions** as the source.
+2. In [environment settings](https://github.com/aliaslany/PrivnetAI/settings/environments), ensure the `github-pages` environment permits deployment from **main**. The initial branch publication permits `gh-pages`; keep it if needed.
+3. Merge the feature PR, or manually dispatch **Publish PrivnetAI Pages** after merging.
+
+The integration's API credential can publish repository branches but GitHub returned HTTP 403 when asked to change Pages settings. These settings steps do not affect using the already published demo.
