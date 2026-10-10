@@ -7,16 +7,22 @@ Welcome to **PrivNet.AI** — an open-source platform combining **post-quantum c
 ## 🚀 Project Vision
 Build a privacy-centric infrastructure where users can train graph-based models **without ever decrypting their data**.
 
-We aim to use **isogeny-based cryptography** (post-quantum secure) and **graph neural networks (GNNs)** to perform secure, structure-aware learning on encrypted data.
+We explore **lattice-based homomorphic encryption** and **graph neural networks (GNNs)** for structure-aware inference on encrypted data. Authenticated post-quantum communication and encrypted training remain separate future protocol work.
 
-> **Current Status**: This is a proof-of-concept (PoC) demonstrating encrypted linear operations on graph neural network features. The current implementation uses `EncryptionShim` (a cryptographic simulator) for demonstration purposes. See [Limitations](#-current-limitations) below.
+> **Current Status**: The original GCN proof of concept uses `EncryptionShim`, an educational simulator. The separate Krylov application supports real CKKS inference on a small demonstration model. Encrypted training is not implemented. See [Limitations](#-current-limitations) and [Krylov boundaries](docs/krylov.md).
+
+## Interactive Krylov application
+
+The [Krylov lab](https://aliaslany.github.io/PrivnetAI/) adds client-side graph compilation, interactive predictions, and an optional real-CKKS demonstration in the browser. It implements the method from [PrivNet-Krylov](https://github.com/chimans/PrivNet-Krylov) independently, with attribution to Ehsan Hakimian and Chiman Soltanian. The sample is a public synthetic graph; displayed accuracy is illustrative all-node accuracy.
+
+Run the application locally with `python -m applications.krylov --backend plain --output /tmp/krylov.json`. For real encrypted execution, install `requirements-ckks.txt` and select `--backend ckks`. See [Krylov usage and boundaries](docs/krylov.md) for the model, browser development, serialized key boundary and validation commands.
 
 ---
 
 ## 🧩 Key Technologies
 - **Graph Neural Networks** for structured data learning (PyTorch Geometric)
-- **Post-Quantum Cryptography** (PQC) modules for future isogeny-based encryption
-- **Homomorphic Encryption** operations framework (in development)
+- **Post-Quantum Cryptography** (PQC) protocol integration (planned; current module is a mock)
+- **Homomorphic Encryption** through optional CKKS backends for the Krylov application
 - **PyTorch** for deep learning infrastructure
 - **Federated Learning & Differential Privacy** (planned for future integration)
 
@@ -126,6 +132,7 @@ Encrypted linear head test acc: 0.492
 
 ## 📚 Documentation
 - [roadmap.md](roadmap.md) – Project roadmap and development phases
+- [Krylov application](docs/krylov.md) – Client-side compilation, real CKKS, and interactive GitHub Pages lab
 - [Research archive (10 October 2026)](docs/research/2026-10-10/README.md) – 2025–2026 literature findings, numerical results, and a proposed roadmap review
 - [README_INSTRUCTION.md](README_INSTRUCTION.md) – Detailed PoC documentation
 - [CONTRIBUTING.md](CONTRIBUTING.md) – Contribution guidelines
@@ -133,7 +140,7 @@ Encrypted linear head test acc: 0.492
 
 ---
 
-## 🔬 Current Implementation Details
+## 🔬 Original GCN Proof-of-Concept Details
 
 ### Architecture Overview
 The current PoC demonstrates:
@@ -215,9 +222,9 @@ We welcome contributions from cryptographers, ML engineers, researchers, and dev
 ---
 
 ## 📍 Project Status
-We're in **early development** — currently building a proof-of-concept demonstrating encrypted linear operations on GNN features.
+We’re in **early development**, with the original GCN simulator and a separate Krylov application offering optional real CKKS inference.
 
-**Current Phase**: PoC with EncryptionShim simulator
+**Current Phase**: GCN simulator plus experimental Krylov CKKS inference
 **Next Steps**: See [roadmap.md](roadmap.md) for detailed development phases
 
 Use `Issues` to suggest features or `Discussions` to brainstorm with us.
@@ -231,11 +238,12 @@ See [roadmap.md](roadmap.md) for the complete development plan.
 - [x] Repo bootstrapping & structure setup
 - [x] PoC with EncryptionShim and GCN on Planetoid datasets
 - [x] Basic test suite
+- [x] Independent Krylov application and interactive browser lab with optional real CKKS
 
 **In Progress / Planned:**
-- [ ] Real homomorphic encryption integration (CKKS/BFV)
-- [ ] Full encrypted inference pipeline
-- [ ] Post-quantum cryptography (isogeny-based)
+- [ ] Broader homomorphic backend and model integration
+- [ ] Full encrypted inference for the original GCN architecture
+- [ ] Authenticated post-quantum communication
 - [ ] Encrypted graph structure support
 - [ ] Federated learning integration
 - [ ] MVP deployment

@@ -1,0 +1,2 @@
+# Optional genuine CKKS backend; NumPy is supplied by requirements.txt.
+tenseal==0.3.16
