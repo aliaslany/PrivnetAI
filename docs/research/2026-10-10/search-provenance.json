@@ -1,0 +1,82 @@
+{
+  "reviewed_at": "2026-10-10",
+  "repository": "aliaslany/PrivnetAI",
+  "repository_commit": "be0400f8e8d22fcfff2d011bc1c1dd9b7a2f4767",
+  "scope": "Targeted discovery, not an exhaustive or ranked literature review. Result counts reflect API responses on the review date. Primary-source URLs and verification limits are recorded in the accompanying notes. No third-party benchmarks reproduced.",
+  "hugging_face_paper_queries": [
+    {
+      "query": "homomorphic graph neural network",
+      "url": "https://huggingface.co/api/papers/search?q=homomorphic+graph+neural+network",
+      "total_results": 120
+    },
+    {
+      "query": "secure graph neural inference",
+      "url": "https://huggingface.co/api/papers/search?q=secure+graph+neural+inference",
+      "total_results": 120
+    },
+    {
+      "query": "privacy graph neural network",
+      "url": "https://huggingface.co/api/papers/search?q=privacy+graph+neural+network",
+      "total_results": 120
+    },
+    {
+      "query": "homomorphic encryption neural network",
+      "url": "https://huggingface.co/api/papers/search?q=homomorphic+encryption+neural+network",
+      "total_results": 120
+    },
+    {
+      "query": "CryptGNN",
+      "url": "https://huggingface.co/api/papers/search?q=CryptGNN",
+      "total_results": 0
+    },
+    {
+      "query": "encrypted graph training",
+      "url": "https://huggingface.co/api/papers/search?q=encrypted+graph+training",
+      "total_results": 120
+    }
+  ],
+  "selected_hugging_face_metadata": [
+    {
+      "id": "2507.05649",
+      "title": "DESIGN: Encrypted GNN Inference via Server-Side Input Graph Pruning",
+      "publishedAt": "2025-07-14T00:00:00.000Z"
+    },
+    {
+      "id": "2507.07972",
+      "title": "EinHops: Einsum Notation for Expressive Homomorphic Operations on\n  RNS-CKKS Tensors",
+      "publishedAt": "2025-07-10T17:50:10.000Z"
+    },
+    {
+      "id": "2602.05838",
+      "title": "FHAIM: Fully Homomorphic AIM For Private Synthetic Data Generation",
+      "publishedAt": "2026-02-05T16:28:13.000Z"
+    }
+  ],
+  "hugging_face_hub_queries": [
+    {
+      "kind": "models",
+      "query": "homomorphic",
+      "results": []
+    },
+    {
+      "kind": "models",
+      "query": "CryptGNN",
+      "results": []
+    },
+    {
+      "kind": "models",
+      "query": "LinGCN",
+      "results": []
+    },
+    {
+      "kind": "datasets",
+      "query": "homomorphic",
+      "results": []
+    },
+    {
+      "kind": "datasets",
+      "query": "federated_graph",
+      "results": []
+    }
+  ]
+}
