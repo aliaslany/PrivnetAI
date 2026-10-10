@@ -126,6 +126,7 @@ Encrypted linear head test acc: 0.492
 
 ## 📚 Documentation
 - [roadmap.md](roadmap.md) – Project roadmap and development phases
+- [Research archive (10 October 2026)](docs/research/2026-10-10/README.md) – 2025–2026 literature findings, numerical results, and a proposed roadmap review
 - [README_INSTRUCTION.md](README_INSTRUCTION.md) – Detailed PoC documentation
 - [CONTRIBUTING.md](CONTRIBUTING.md) – Contribution guidelines
 - [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) – Community guidelines

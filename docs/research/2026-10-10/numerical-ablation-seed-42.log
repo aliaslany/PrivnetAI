@@ -1,0 +1,6 @@
+Epoch 001 | loss=1.9458 | train=0.257 | val=0.156 | test=0.170
+Epoch 010 | loss=1.7470 | train=0.957 | val=0.708 | test=0.725
+Epoch 020 | loss=1.3528 | train=0.964 | val=0.774 | test=0.786
+Epoch 030 | loss=0.9377 | train=0.971 | val=0.804 | test=0.811
+Epoch 040 | loss=0.6351 | train=0.979 | val=0.806 | test=0.829
+Epoch 050 | loss=0.4529 | train=0.979 | val=0.802 | test=0.825
