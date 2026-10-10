@@ -1,0 +1,7 @@
+{
+  "source_repository": "aliaslany/PrivnetAI",
+  "source_ref": "feat/krylov-pages-demo",
+  "source_commit": "29f7d5c7fc4e03ffef8d8183c7169f0e3247bd17",
+  "built_at_utc": "2026-10-10T13:20:43.766893+00:00",
+  "publication": "Initial tested feature preview; future updates use supported Pages artifact workflow on main"
+}

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#112323">
+  <meta name="description" content="A local graph-learning laboratory: compile a Chebyshev feature bank, inspect predictions and compare identical plaintext computation paths.">
+  <title>PrivnetAI · Krylov laboratory</title>
+  <script type="module" crossorigin src="./assets/index-l6dSm-Dc.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-Dxdd8pQf.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="PrivnetAI laboratory home">
+      <svg viewBox="0 0 36 36" aria-hidden="true"><path d="M8 11 18 5l10 6v14l-10 6-10-6Z M8 11l10 7 10-7M18 18v13"/><circle cx="18" cy="18" r="3"/></svg>
+      <span>Privnet<span class="brand-accent">AI</span><span class="brand-divider">/</span><span class="brand-lab">laboratory</span></span>
+    </a>
+    <nav aria-label="Resources">
+      <a href="https://github.com/aliaslany/PrivnetAI/tree/main/docs/research/2026-10-10" target="_blank" rel="noopener">Research notes <span aria-hidden="true">↗</span></a>
+      <a href="https://github.com/aliaslany/PrivnetAI" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+      <span class="local-badge"><span class="status-dot"></span>Runs locally</span>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="line"></span> GRAPH LEARNING, MADE INSPECTABLE</div>
+        <h1 id="page-title">Compile the graph.<br><span>Inspect the computation.</span></h1>
+        <p>Turn graph propagation into a reusable feature bank. Adjust its degree, perturb the inputs, and compare two independent paths through the same model.</p>
+      </div>
+      <aside class="mode-card">
+        <span class="small-label">CURRENT WORKSPACE</span>
+        <strong><span class="status-dot"></span> Local plaintext demonstration</strong>
+        <p>The default experiment does not encrypt. Your graph stays in this browser; uploaded JSON is never sent to a server.</p>
+        <div class="mode-footer"><span aria-hidden="true">⌘</span> No account. No backend. Inspectable results.</div>
+      </aside>
+    </section>
+
+    <div id="page-error" class="message error" role="alert" hidden></div>
+
+    <section class="workspace" aria-label="Interactive graph experiment">
+      <div class="workspace-main">
+        <section class="panel graph-panel" aria-labelledby="graph-title">
+          <div class="panel-heading">
+            <div><span class="small-label">01 / THE GRAPH</span><h2 id="graph-title">A graph you can inspect</h2></div>
+            <div class="graph-view-switch" role="group" aria-label="Node colors">
+              <button id="show-predictions" class="view-button active" type="button" aria-pressed="true">Predictions</button>
+              <button id="show-labels" class="view-button" type="button" aria-pressed="false">Reference labels</button>
+            </div>
+          </div>
+          <div class="graph-meta"><strong id="fixture-name">Loading graph…</strong><span id="graph-shape"></span><span id="fixture-kind" class="tag">BUNDLED DEMO</span></div>
+          <div class="graph-stage">
+            <div class="graph-grid" aria-hidden="true"></div>
+            <svg id="graph" viewBox="0 0 820 380" role="img" aria-labelledby="graph-accessible-title graph-description">
+              <title id="graph-accessible-title">Interactive demonstration graph</title>
+              <desc id="graph-description">Select a node to inspect its model scores. Node positions are illustrative; edges define the graph.</desc>
+            </svg>
+            <div class="graph-hint"><span aria-hidden="true">◎</span> Select a node to inspect its scores</div>
+          </div>
+          <div class="graph-bottom"><div id="legend" class="legend" aria-label="Class colors"></div><span class="small-note">Layout groups reference labels; positions are illustrative.</span></div>
+        </section>
+
+        <section class="panel pipeline-panel" aria-labelledby="pipeline-title">
+          <div class="panel-heading"><div><span class="small-label">02 / CLIENT COMPILATION</span><h2 id="pipeline-title">From edges to a feature bank</h2></div><span class="tag outline">PLAINTEXT</span></div>
+          <div class="pipeline">
+            <div class="pipeline-step"><div class="step-number">1</div><strong>Normalize</strong><code>S = D⁻½(A + I)D⁻½</code><span>Undirected graph · one self loop</span></div>
+            <div class="pipeline-arrow" aria-hidden="true">→</div>
+            <div class="pipeline-step bank-step"><div class="step-number">2</div><strong>Compile</strong><div id="bank-tiles" class="bank-tiles"></div><span id="bank-description">B₀ = X · B₁ = SX</span></div>
+            <div class="pipeline-arrow" aria-hidden="true">→</div>
+            <div class="pipeline-step"><div class="step-number">3</div><strong>Evaluate</strong><code>p(Σ BₖΘₖ + b)W + c</code><span>Polynomial activation · linear readout</span></div>
+          </div>
+          <p class="pipeline-note">Chebyshev recurrence: <code>Bₖ = 2SBₖ₋₁ − Bₖ₋₂</code>. The independent oracle constructs the full <code>Tₖ(S)</code> matrices. Both paths use identical inputs and weights.</p>
+        </section>
+      </div>
+
+      <aside class="panel controls-panel" aria-labelledby="controls-title">
+        <div class="panel-heading"><div><span class="small-label">EXPERIMENT CONTROLS</span><h2 id="controls-title">Make it your own</h2></div><span aria-hidden="true" class="controls-icon">⌁</span></div>
+        <form id="experiment-form">
+          <label class="control-label" for="degree"><span>Polynomial degree</span><output id="degree-value" for="degree">K = 2</output></label>
+          <input id="degree" type="range" min="0" max="4" step="1" value="2" aria-describedby="degree-help">
+          <div class="range-scale" id="degree-scale"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span></div>
+          <p class="control-help" id="degree-help">Use the first K + 1 weight blocks. Changing K changes the model, not just its numerical precision.</p>
+          <div class="control-divider"></div>
+          <label class="control-label" for="perturbation"><span>Feature perturbation</span><output id="perturbation-value" for="perturbation">±0.00</output></label>
+          <input id="perturbation" type="range" min="0" max="0.5" step="0.01" value="0" aria-describedby="perturbation-help">
+          <div class="range-scale"><span>Original</span><span>±0.50</span></div>
+          <p class="control-help" id="perturbation-help">Add bounded, deterministic noise to each input. This is a robustness illustration, not privacy noise.</p>
+          <div class="run-buttons"><button id="run" class="button primary" type="submit"><span aria-hidden="true">▶</span> Run experiment</button><button id="reset" class="button icon-button" type="button" title="Reset controls" aria-label="Reset controls">↺</button></div>
+        </form>
+        <div id="run-status" class="run-status" role="status" aria-live="polite">Preparing the bundled example…</div>
+        <div class="upload-section">
+          <div class="control-label"><span>Bring your own graph</span><span class="tag outline">JSON</span></div>
+          <p class="control-help">Explore the same pipeline with a small local fixture.</p>
+          <button id="upload-button" class="button secondary" type="button"><span aria-hidden="true">↑</span> Open local JSON</button>
+          <input id="upload" type="file" accept="application/json,.json" hidden>
+          <button id="restore-demo" class="text-button" type="button" hidden>Return to bundled example</button>
+          <details class="schema-details"><summary>Fixture format & limits</summary><p>Schema v1: <code>nodes</code> with consecutive integer ids 0…N−1 and display labels, index-pair <code>edges</code>, numeric <code>features</code>, class-index <code>labels</code>, <code>model</code>, and <code>default_degree</code>. Activation coefficients are ascending. Maximum 120 nodes, 32 features/hidden channels, 16 classes, degree 4, and 256 KB.</p><a id="download-fixture" class="text-button" href="#" download="privnetai-demo.json">Download the example JSON ↓</a></details>
+        </div>
+        <div class="encryption-section">
+          <div class="control-label"><span>Optional real CKKS</span><span class="tag outline">PROTOTYPE</span></div>
+          <p class="control-help">A separate encrypted run of the bundled feature-bank readout. Client and evaluator run in one browser; evaluator context excludes the secret key.</p>
+          <button id="run-ckks" class="button secondary" type="button" disabled><span aria-hidden="true">◇</span> Run real CKKS</button>
+          <div id="ckks-status" class="run-status" role="status" aria-live="polite">Available after the example loads.</div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="metrics" aria-label="Plaintext numerical diagnostics">
+      <div class="metric"><span class="small-label">SAME-MODEL AGREEMENT</span><strong id="agreement">—<small>%</small></strong><span>Compiled vs direct oracle</span></div>
+      <div class="metric"><span class="small-label">MAXIMUM LOGIT ERROR</span><strong id="max-error">—</strong><span>Absolute floating-point difference</span></div>
+      <div class="metric"><span class="small-label">ALL-NODE ACCURACY</span><strong id="accuracy">—<small>%</small></strong><span>Illustrative · no held-out evaluation</span></div>
+      <div class="metric"><span class="small-label">BANK SCALAR VALUES</span><strong id="bank-count">—</strong><span id="bank-formula">(K + 1) × nodes × features</span></div>
+    </section>
+
+    <section class="results-grid" aria-label="Detailed results">
+      <section class="panel node-panel" aria-labelledby="node-title">
+        <div class="panel-heading"><div><span class="small-label">03 / INSPECT A NODE</span><h2 id="node-title">Node scores</h2></div><span id="node-id" class="tag outline">—</span></div>
+        <div id="node-summary" class="node-summary"></div><div id="logit-bars" class="logit-bars"></div>
+        <p class="small-note">Raw logits are model scores, not calibrated probabilities. The largest score determines the prediction.</p>
+      </section>
+      <section class="panel diagnostics-panel" aria-labelledby="diagnostics-title">
+        <div class="panel-heading"><div><span class="small-label">COMPUTATION DETAILS</span><h2 id="diagnostics-title">Measured in your browser</h2></div><span class="tag outline">LOCAL</span></div>
+        <dl class="diagnostics"><div><dt>Compile the bank</dt><dd id="compile-time">—</dd></div><div><dt>Evaluate compiled readout</dt><dd id="inference-time">—</dd></div><div><dt>Independent dense oracle</dt><dd id="oracle-time">—</dd></div><div><dt>Mean absolute logit error</dt><dd id="mean-error">—</dd></div></dl>
+        <p class="small-note">One local run, including browser noise. These timings do not measure encrypted execution, a server, or a research benchmark.</p>
+        <button id="export" class="button secondary export-button" type="button" disabled><span aria-hidden="true">↓</span> Export this result</button>
+      </section>
+    </section>
+
+    <section id="ckks-results" class="panel ckks-results" aria-labelledby="ckks-title" hidden>
+      <div class="panel-heading"><div><span class="small-label">OPTIONAL ENCRYPTED READOUT</span><h2 id="ckks-title">Real CKKS · local prototype</h2></div><span class="tag">ENCRYPTED FEATURE BANK</span></div>
+      <div id="ckks-diagnostics" class="ckks-diagnostics"></div>
+      <p id="ckks-scope" class="small-note"></p>
+      <p class="small-note">Graph compilation is plaintext at the client. This prototype is not encrypted training, private-topology evaluation, remote key isolation, or a production security guarantee.</p>
+    </section>
+
+    <section class="explanation" aria-labelledby="explanation-title">
+      <div><span class="small-label">WHY A FEATURE BANK?</span><h2 id="explanation-title">Move the graph work.<br>Keep the model explicit.</h2></div>
+      <div class="explanation-copy"><p>For a fixed graph operator, the client can compute Chebyshev-transformed features once. The readout then uses dense projections of those features, a polynomial activation, and a final classifier.</p><p>This laboratory checks the algebra with an independent direct oracle. It demonstrates numerical equivalence for the selected model; it does not establish accuracy on unseen data, conceal the default plaintext bank, or prove security.</p><a href="https://github.com/aliaslany/PrivnetAI/tree/main/docs/research/2026-10-10" target="_blank" rel="noopener">Read the findings and proposed roadmap <span aria-hidden="true">↗</span></a><p class="method-credit">Method reference: <a href="https://github.com/chimans/PrivNet-Krylov/tree/0976e41881192da938ef2ab988c2fe3fdb92835b" target="_blank" rel="noopener">PrivNet-Krylov by Ehsan Hakimian and Chiman Soltanian ↗</a>. This browser implementation was written independently; upstream source code is not bundled.</p></div>
+    </section>
+  </main>
+
+  <footer>
+    <div><strong>PrivnetAI</strong><span>A research workspace by Ehsan Hakimian and Chiman Soltanian.</span></div>
+    <div class="footer-links"><a href="https://github.com/aliaslany/PrivnetAI" target="_blank" rel="noopener">Source & attribution ↗</a><span>Independent demo · explicit assumptions</span></div>
+  </footer>
+</body>
+</html>

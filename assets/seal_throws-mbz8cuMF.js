@@ -1,0 +1,1 @@
+var e=new URL(`seal_throws-C-IzQ_Lp.wasm`,import.meta.url).href;export{e as default};
