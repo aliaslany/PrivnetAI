@@ -12,3 +12,10 @@
 .venv/
 __pycache__/
 data/
+!site/data/
+!site/data/demo.json
+node_modules/
+dist/
+playwright-report/
+test-results/
+krylov-results.json
