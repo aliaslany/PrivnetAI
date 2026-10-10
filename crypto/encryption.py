@@ -1,5 +1,6 @@
 import torch
 from dataclasses import dataclass
+from __future__ import annotations
 
 @dataclass
 class EncTensor:
@@ -39,11 +40,20 @@ class EncryptionShim:
         mask = torch.round(a.mask.to(torch.float64) * s).to(torch.int64)
         return EncTensor(payload=payload, mask=mask, scale=a.scale)
 
-    def matmul_linear_only(self, a: EncTensor, W: torch.Tensor) -> EncTensor:
-        W_int = torch.round(W.to(torch.float64)).to(torch.int64)
-        payload = a.payload.to(torch.int64) @ W_int
-        mask    = a.mask.to(torch.int64)    @ W_int
-        return EncTensor(payload=payload, mask=mask, scale=a.scale)
+        def matmul_linear_only(self, a: EncTensor, W: torch.Tensor, w_scale: float | None = None) -> EncTensor:
+           """Multiply an encrypted tensor by a plaintext weight matrix.
+
+           W is quantized with its own fixed-point scale (default: the shim's scale)
+           instead of being rounded to integers, which zeroed out small weights.
+           The result carries the combined scale (a.scale * w_scale).
+           Note: payload/mask are int64; masks (~2^31) times W_int summed over the
+           inner dimension can overflow for very large layers or scales.
+           """
+           w_scale = self.scale if w_scale is None else float(w_scale)
+           W_int = torch.round(W.to(torch.float64) * w_scale).to(torch.int64)
+           payload = a.payload.to(torch.int64) @ W_int
+           mask    = a.mask.to(torch.int64)    @ W_int
+           return EncTensor(payload=payload, mask=mask, scale=a.scale * w_scale)
 
 if __name__ == "__main__":
     # Demo: linear matmul on masked ("encrypted-like") data and decrypt result
